@@ -32,7 +32,7 @@ function Header() {
             <AppBar position="sticky">
                 <Toolbar>
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
+                      ECOMM  <MenuIcon />
                     </IconButton>
                     <Button color="inherit"><Link to="/">Home</Link></Button>
                     {
