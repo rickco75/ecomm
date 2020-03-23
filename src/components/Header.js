@@ -35,8 +35,12 @@ function Header() {
                         <MenuIcon />
                     </IconButton>
                     <Button color="inherit"><Link to="/">Home</Link></Button>
-                    <Button color="inherit"><Link to="/cart">Cart</Link></Button>
-                    <Button color="inherit"><Link to="/checkout">Checkout</Link></Button>
+                    {
+                        cartItems.length > 0 && <Button color="inherit"><Link to="/cart">Cart</Link></Button>
+                    }
+                    {
+                        cartItems.length > 0 &&  <Button color="inherit"><Link to="/checkout">Checkout</Link></Button>
+                    }
                     <Button color="inherit"><Link to="/signin">Login</Link></Button>
 
                 </Toolbar>
