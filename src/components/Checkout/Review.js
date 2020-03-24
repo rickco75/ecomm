@@ -79,13 +79,20 @@ export default function Review(props) {
                   </React.Fragment>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={6} sm={6}>
             <Button
                 color="primary"
                 onClick={props.prevStep}
                 className={classes.button}
               > Previous </Button>
             </Grid>
+            <Grid item xs={6} sm={6}>
+            <Button
+                color="primary"
+                onClick={props.nextStep}
+                className={classes.button}
+              > Submit Payment! </Button>
+            </Grid>            
           </Grid>
         </Paper>
       </main>

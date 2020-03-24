@@ -1,15 +1,16 @@
 import React, { useState, useContext } from "react"
-import {Context} from '../Context'
+import { Context } from '../Context'
 
 import AddressForm from '../components/Checkout/AddressForm'
 import PaymentForm from '../components/Checkout/PaymentForm'
 import Review from '../components/Checkout/Review'
+import Purchased from '../components/Checkout/Purchased'
 
 
 function Cart() {
-    const [step,setStep] = useState(1)
+    const [step, setStep] = useState(1)
     const [inputData, setInputData] = useState({
-        firstName:"",
+        firstName: "",
         lastName: "",
         address1: "",
         address2: "",
@@ -22,13 +23,13 @@ function Cart() {
         expDate: "",
         cvv: ""
     })
-    const {cartItems} = useContext(Context)
+    const { cartItems } = useContext(Context)
 
     const nextStep = () => {
-        setStep(step+1)
+        setStep(step + 1)
     }
     const prevStep = () => {
-        setStep(step-1)
+        setStep(step - 1)
     }
 
     const handleTextFieldChange = (event) => {
@@ -36,42 +37,51 @@ function Cart() {
         setInputData(prevInputValues => ({ ...prevInputValues, [name]: value }))
     }
 
+
+    const { firstName, lastName, address1, address2, city, state, zip, country, cardName, cardNumber, expDate, cvv } = inputData
+    const values = { firstName, lastName, address1, address2, city, state, zip, country, cardName, cardNumber, expDate, cvv }
     const submitForm = () => {
         console.log(inputData)
     }
 
-    const {firstName,lastName,address1,address2,city,state,zip,country,cardName,cardNumber,expDate,cvv} = inputData
-    const values = {firstName,lastName,address1,address2,city,state,zip,country,cardName,cardNumber,expDate,cvv}
-    
-    switch(step){
+    switch (step) {
         case 1:
             return (
-                <AddressForm 
+                <AddressForm
                     nextStep={nextStep}
                     handleTextFieldChange={handleTextFieldChange}
                     values={values}
                     cartItems={cartItems}
-                    />
+                />
             )
         case 2:
             return (
-                <PaymentForm 
+                <PaymentForm
                     nextStep={nextStep}
                     prevStep={prevStep}
                     handleTextFieldChange={handleTextFieldChange}
                     values={values}
                     cartItems={cartItems}
-                    />
+                />
             )
         case 3:
             return (
-                <Review 
-                nextStep={nextStep}
-                prevStep={prevStep}
-                handleTextFieldChange={handleTextFieldChange}
-                values={values}
-                cartItems={cartItems}
-                    />
+                <Review
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                    handleTextFieldChange={handleTextFieldChange}
+                    values={values}
+                    cartItems={cartItems}
+                />
+            )
+        case 4:
+            return (
+                <Purchased
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                    values={values}
+                    cartItems={cartItems}
+                />
             )
     }
 }
