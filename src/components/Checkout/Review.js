@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -12,105 +12,83 @@ import Step from '@material-ui/core/Step';
 import Stepper from '@material-ui/core/Stepper';
 import StepLabel from '@material-ui/core/StepLabel';
 
-const products = [
-  { name: 'Product 1', desc: 'A nice thing', price: '$9.99' },
-  { name: 'Product 2', desc: 'Another thing', price: '$3.45' },
-  { name: 'Product 3', desc: 'Something else', price: '$6.51' },
-  { name: 'Product 4', desc: 'Best thing of all', price: '$14.11' },
-  { name: 'Shipping', desc: '', price: 'Free' },
-];
-const addresses = ['1 Material-UI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
-const payments = [
-  { name: 'Card type', detail: 'Visa' },
-  { name: 'Card holder', detail: 'Mr John Smith' },
-  { name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234' },
-  { name: 'Expiry date', detail: '04/2024' },
-];
+import CartItem from '../CartItem'
 
-// const useStyles = makeStyles((theme) => ({
-//   listItem: {
-//     padding: theme.spacing(1, 0),
-//   },
-//   total: {
-//     fontWeight: 700,
-//   },
-//   title: {
-//     marginTop: theme.spacing(2),
-//   },
-// }));
 
 export default function Review(props) {
   const classes = useStyles();
-
+  const cartItemElements = props.cartItems.map(item => (
+    <CartItem key={item.id} item={item} />
+  ))
   return (
     <React.Fragment>
       <main className={classes.layout}>
-      <Paper className={classes.paper}>  
-      <Typography component="h1" variant="h4" align="center">
+        <Paper className={classes.paper}>
+          <Typography component="h1" variant="h4" align="center">
             Checkout
-          </Typography>          
-      <Typography variant="h6" gutterBottom>
-        Order summary
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            Order summary
       </Typography>
-      <Stepper activeStep="3" className={classes.stepper}>
-              <Step>
-                <StepLabel>Shipping Address</StepLabel>
-              </Step>
-              <Step>
-                <StepLabel>Payment Details</StepLabel>
-              </Step>  
-              <Step>
-                <StepLabel>Review Your Order</StepLabel>
-              </Step>                 
-          </Stepper>       
-      <List disablePadding>
-        {products.map((product) => (
-          <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
-          </ListItem>
-        ))}
-        <ListItem className={classes.listItem}>
-          <ListItemText primary="Total" />
-          <Typography variant="subtitle1" className={classes.total}>
-            $34.06
+          <Stepper activeStep={2} className={classes.stepper}>
+            <Step>
+              <StepLabel>Shipping Address</StepLabel>
+            </Step>
+            <Step>
+              <StepLabel>Payment Details</StepLabel>
+            </Step>
+            <Step>
+              <StepLabel>Review Your Order</StepLabel>
+            </Step>
+          </Stepper>
+          <List disablePadding>
+            {cartItemElements}
+            <ListItem className={classes.listItem}>
+              <ListItemText primary="Total" />
+              <Typography variant="subtitle1" className={classes.total}>
+                ${props.cartItems.length*5.99}
           </Typography>
-        </ListItem>
-      </List>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
-            Shipping
+            </ListItem>
+          </List>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <Typography variant="h6" gutterBottom className={classes.title}>
+                Shipping
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(', ')}</Typography>
-        </Grid>
-        <Grid item container direction="column" xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
-            Payment details
+              <Typography gutterBottom>{props.values.firstName} {props.values.lastName}</Typography>
+              {/* <Typography gutterBottom>{addresses.join(', ')}</Typography> */}
+              <Typography gutterBottom>{props.values.address1}</Typography>
+              <Typography gutterBottom>{props.values.address2}</Typography>
+              <Typography gutterBottom>{props.values.city}, {props.values.state}, {props.values.zip} </Typography>
+            </Grid>
+            <Grid item container direction="column" xs={12} sm={6}>
+              <Typography variant="h6" gutterBottom className={classes.title}>
+                Payment details
           </Typography>
-          <Grid container>
-            {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
-                </Grid>
-              </React.Fragment>
-            ))}
+              <Grid container>
+                  <React.Fragment>
+                    <Grid item xs={6}>
+                      <Typography gutterBottom>Card Holder {props.values.cardName}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography gutterBottom>Card Number {props.values.cardNumber}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Typography gutterBottom>Expiry Date {props.values.expDate}</Typography>
+                    </Grid>                    
+                  </React.Fragment>
+              </Grid>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+            <Button
+                color="primary"
+                onClick={props.prevStep}
+                className={classes.button}
+              > Previous </Button>
+            </Grid>
           </Grid>
-        </Grid>
-          <Grid item xs={12} sm={6}>
-          <Button
-            color="primary"            
-            onClick={props.prevStep}
-          > Previous </Button>
-        </Grid> 
-      </Grid>
-      </Paper>
-      </main>      
+        </Paper>
+      </main>
     </React.Fragment>
   );
 }

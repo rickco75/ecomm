@@ -32,7 +32,7 @@ export default function AddressForm(props) {
       <Typography variant="h6" gutterBottom>
         Shipping address
       </Typography>
-      <Stepper activeStep="1" className={classes.stepper}>
+      <Stepper activeStep={0} className={classes.stepper}>
               <Step>
                 <StepLabel>Shipping Address</StepLabel>
               </Step>
@@ -48,6 +48,7 @@ export default function AddressForm(props) {
           <TextField
             required
             onChange={props.handleTextFieldChange}
+            defaultValue={props.values.firstName}
             id="firstName"
             name="firstName"
             label="First name"
@@ -58,6 +59,7 @@ export default function AddressForm(props) {
        <Grid item xs={12} sm={6}>
           <TextField
             onChange={props.handleTextFieldChange}
+            defaultValue={props.values.lastName}
             required
             id="lastName"
             name="lastName"
@@ -69,6 +71,7 @@ export default function AddressForm(props) {
         <Grid item xs={12}>
           <TextField
             onChange={props.handleTextFieldChange}
+            defaultValue={props.values.address1}
             required
             id="address1"
             name="address1"
@@ -80,6 +83,7 @@ export default function AddressForm(props) {
         <Grid item xs={12}>
           <TextField
             onChange={props.handleTextFieldChange}
+            defaultValue={props.values.address2}
             id="address2"
             name="address2"
             label="Address line 2"
@@ -90,6 +94,7 @@ export default function AddressForm(props) {
         <Grid item xs={12} sm={6}>
           <TextField
             onChange={props.handleTextFieldChange}
+            defaultValue={props.values.city}
             required
             id="city"
             name="city"
@@ -101,11 +106,13 @@ export default function AddressForm(props) {
         <Grid item xs={12} sm={6}>
           <TextField 
             onChange={props.handleTextFieldChange}
+            defaultValue={props.values.state}
             id="state" name="state" label="State/Province/Region" fullWidth />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             onChange={props.handleTextFieldChange}
+            defaultValue={props.values.zip}
             required
             id="zip"
             name="zip"
@@ -117,6 +124,7 @@ export default function AddressForm(props) {
         <Grid item xs={12} sm={6}>
           <TextField
             onChange={props.handleTextFieldChange}
+            defaultValue={props.values.country}
             required
             id="country"
             name="country"
@@ -134,7 +142,8 @@ export default function AddressForm(props) {
         <Grid item xs={12} sm={6} className={classes.buttons}>
           <Button
             color="primary"            
-            onClick={props.nextStep}
+            onClick={Continue}
+            className={classes.button}
           > Next </Button> 
         </Grid>
       </Grid>

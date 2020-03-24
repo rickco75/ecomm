@@ -1,18 +1,9 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
+import {Context} from '../Context'
 
 import AddressForm from '../components/Checkout/AddressForm'
 import PaymentForm from '../components/Checkout/PaymentForm'
 import Review from '../components/Checkout/Review'
-
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
-import ThemeProvider from '@material-ui/styles/ThemeProvider'
-import AppBar from '@material-ui/core/AppBar'
 
 
 function Cart() {
@@ -25,8 +16,13 @@ function Cart() {
         city: "",
         state: "",
         zip: "",
-        country: ""
+        country: "",
+        cardName: "",
+        cardNumber: "",
+        expDate: "",
+        cvv: ""
     })
+    const {cartItems} = useContext(Context)
 
     const nextStep = () => {
         setStep(step+1)
@@ -44,8 +40,8 @@ function Cart() {
         console.log(inputData)
     }
 
-    const {firstName,lastName,address1,address2,city,state,zip,country} = inputData
-    const values = {firstName,lastName,address1,address2,city,state,zip,country}
+    const {firstName,lastName,address1,address2,city,state,zip,country,cardName,cardNumber,expDate,cvv} = inputData
+    const values = {firstName,lastName,address1,address2,city,state,zip,country,cardName,cardNumber,expDate,cvv}
     
     switch(step){
         case 1:
@@ -54,6 +50,7 @@ function Cart() {
                     nextStep={nextStep}
                     handleTextFieldChange={handleTextFieldChange}
                     values={values}
+                    cartItems={cartItems}
                     />
             )
         case 2:
@@ -63,6 +60,7 @@ function Cart() {
                     prevStep={prevStep}
                     handleTextFieldChange={handleTextFieldChange}
                     values={values}
+                    cartItems={cartItems}
                     />
             )
         case 3:
@@ -72,6 +70,7 @@ function Cart() {
                 prevStep={prevStep}
                 handleTextFieldChange={handleTextFieldChange}
                 values={values}
+                cartItems={cartItems}
                     />
             )
     }
