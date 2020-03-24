@@ -52,7 +52,7 @@ export default function Review(props) {
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
-      <Stepper activeStep="1" className={classes.stepper}>
+      <Stepper activeStep="3" className={classes.stepper}>
               <Step>
                 <StepLabel>Shipping Address</StepLabel>
               </Step>
