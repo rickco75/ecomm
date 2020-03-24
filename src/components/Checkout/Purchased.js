@@ -36,6 +36,13 @@ export default function Purchased(props) {
             </Step>
           </Stepper>                    
           <Grid container spacing={2}>
+          <Grid item container direction="column" xs={12} sm={6}>
+              <Typography variant="h7" gutterBottom className={classes.title}>
+                <em>A confirmation has been sent to your email address!</em>
+              </Typography>
+          </Grid> 
+          </Grid>
+          <Grid container spacing={2}>          
             <Grid item container direction="column" xs={12} sm={6}>
               <Typography variant="h6" gutterBottom className={classes.title}>
                 Confirmation Number: 0153433
