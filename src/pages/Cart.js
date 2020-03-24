@@ -1,40 +1,80 @@
-import React, {useState, useContext} from "react"
-import {Context} from "../Context"
-import CartItem from "../components/CartItem"
+import React, { useState } from "react"
+
+import AddressForm from '../components/Checkout/AddressForm'
+import PaymentForm from '../components/Checkout/PaymentForm'
+import Review from '../components/Checkout/Review'
+
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
+import ThemeProvider from '@material-ui/styles/ThemeProvider'
+import AppBar from '@material-ui/core/AppBar'
+
 
 function Cart() {
-    const [buttonText, setButtonText] = useState("Place Order")
-    const {cartItems, emptyCart} = useContext(Context)
-    const totalCost = 5.99 * cartItems.length
-    const totalCostDisplay = totalCost.toLocaleString("en-US", {style: "currency", currency: "USD"})
-    
-    const cartItemElements = cartItems.map(item => (
-        <CartItem key={item.id} item={item} />
-    ))
-    
-    function placeOrder() {
-        setButtonText("Ordering...")
-        setTimeout(() => {
-            console.log("Order placed!")
-            setButtonText("Place Order")
-            emptyCart()
-        }, 3000)
+    const [step,setStep] = useState(1)
+    const [inputData, setInputData] = useState({
+        firstName:"",
+        lastName: "",
+        address1: "",
+        address2: "",
+        city: "",
+        state: "",
+        zip: "",
+        country: ""
+    })
+
+    const nextStep = () => {
+        setStep(step+1)
     }
+    const prevStep = () => {
+        setStep(step-1)
+    }
+
+    const handleTextFieldChange = (event) => {
+        const { name, value } = event.target
+        setInputData(prevInputValues => ({ ...prevInputValues, [name]: value }))
+    }
+
+    const submitForm = () => {
+        console.log(inputData)
+    }
+
+    const {firstName,lastName,address1,address2,city,state,zip,country} = inputData
+    const values = {firstName,lastName,address1,address2,city,state,zip,country}
     
-    return (
-        <main className="cart-page">
-            <h1>Cart</h1>
-            {cartItemElements}
-            <p className="total-cost">Total: {totalCostDisplay}</p>
-            {
-                cartItems.length > 0 ?
-                <div className="order-button">
-                    <button onClick={placeOrder}>{buttonText}</button>
-                </div> :
-                <p>You have no items in your cart.</p>
-            }
-        </main>
-    )
+    switch(step){
+        case 1:
+            return (
+                <AddressForm 
+                    nextStep={nextStep}
+                    handleTextFieldChange={handleTextFieldChange}
+                    values={values}
+                    />
+            )
+        case 2:
+            return (
+                <PaymentForm 
+                    nextStep={nextStep}
+                    prevStep={prevStep}
+                    handleTextFieldChange={handleTextFieldChange}
+                    values={values}
+                    />
+            )
+        case 3:
+            return (
+                <Review 
+                nextStep={nextStep}
+                prevStep={prevStep}
+                handleTextFieldChange={handleTextFieldChange}
+                values={values}
+                    />
+            )
+    }
 }
 
 export default Cart

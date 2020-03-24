@@ -5,6 +5,7 @@ const Context = React.createContext()
 function ContextProvider({children}) {
     const [allPhotos, setAllPhotos] = useState([])
     const [cartItems, setCartItems] = useState([])
+    const [checkoutFormItems,setCheckoutFormItems] = useState({})
     
     const url = "https://raw.githubusercontent.com/bobziroll/scrimba-react-bootcamp-images/master/images.json"
     useEffect(() => {
@@ -35,6 +36,11 @@ function ContextProvider({children}) {
     function emptyCart() {
         setCartItems([])
     }
+
+    function addCheckoutValues(fields){
+        //setCheckoutFormItems(fields)
+        setCheckoutFormItems(prevInputValues => ({ ...prevInputValues, fields }))
+    }
     
     return (
         <Context.Provider value={{
@@ -43,7 +49,9 @@ function ContextProvider({children}) {
             cartItems, 
             addToCart, 
             removeFromCart, 
-            emptyCart
+            emptyCart,
+            checkoutFormItems,
+            addCheckoutValues         
         }}>
             {children}
         </Context.Provider>

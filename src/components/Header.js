@@ -34,7 +34,7 @@ function Header() {
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                       ECOMM  <MenuIcon />
                     </IconButton>
-                    <Button color="inherit"><Link to="/">Home</Link></Button>
+                    <Button color="inherit"><Link to="/">SHOP</Link></Button>
                     {
                         cartItems.length > 0 && <Button color="inherit"><Link to="/cart">Cart</Link></Button>
                     }

@@ -23,6 +23,7 @@ main.photos {
 
 main.cart-page {
   padding: 10px;
+  margin: 10px;
 }
 
 .cart-page > h1 {

@@ -3,9 +3,12 @@ import {Switch, Route} from "react-router-dom"
 
 import Header from "./components/Header"
 import Cart from "./pages/Cart"
+import Cart2 from "./pages/Cart2"
 import Photos from "./pages/Photos"
 import SignIn from "./pages/SignIn"
 import Checkout from "./components/Checkout/Checkout"
+import PaymentForm from './components/Checkout/PaymentForm'
+
 function App() {    
     return (
         <div>
@@ -16,14 +19,17 @@ function App() {
                     <Photos />
                 </Route>                
                 <Route path="/cart">
-                    <Cart />
+                    <Cart2 />
                 </Route>
                 <Route path="/signin">
                     <SignIn />
                 </Route>
                 <Route path="/checkout">
-                    <Checkout />
-                </Route>                
+                    <Cart />
+                </Route>
+                <Route path="/paymentdetails">
+                    <PaymentForm />
+                </Route>
             </Switch>
         </div>
     )

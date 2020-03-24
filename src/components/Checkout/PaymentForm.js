@@ -4,13 +4,37 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Button from '@material-ui/core/Button';
+import useStyles from '../../utils/useStyles'
+import Paper from '@material-ui/core/Paper';
+import Step from '@material-ui/core/Step';
+import Stepper from '@material-ui/core/Stepper';
+import StepLabel from '@material-ui/core/StepLabel';
 
-export default function PaymentForm() {
+export default function PaymentForm(props) {
+  const classes = useStyles();
+
   return (
     <React.Fragment>
+      <main className={classes.layout}>
+      <Paper className={classes.paper}>
+      <Typography component="h1" variant="h4" align="center">
+            Checkout
+          </Typography>
       <Typography variant="h6" gutterBottom>
         Payment method
       </Typography>
+      <Stepper activeStep="2" className={classes.stepper}>
+              <Step>
+                <StepLabel>Payment Method</StepLabel>
+              </Step>
+              <Step>
+                <StepLabel>Payment Details</StepLabel>
+              </Step>  
+              <Step>
+                <StepLabel>Review Your Order</StepLabel>
+              </Step>                           
+          </Stepper>       
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <TextField required id="cardName" label="Name on card" fullWidth />
@@ -36,7 +60,21 @@ export default function PaymentForm() {
             label="Remember credit card details for next time"
           />
         </Grid>
+        <Grid item xs={12} sm={6}>
+          <Button
+            color="secondary"            
+            onClick={props.prevStep}
+          > Previous </Button>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Button
+            color="secondary"            
+            onClick={props.nextStep}
+          > Next </Button>
+        </Grid>                
       </Grid>
+      </Paper>
+      </main>
     </React.Fragment>
   );
 }

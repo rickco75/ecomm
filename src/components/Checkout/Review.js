@@ -5,6 +5,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import useStyles from '../../utils/useStyles'
+import Paper from '@material-ui/core/Paper';
+import Step from '@material-ui/core/Step';
+import Stepper from '@material-ui/core/Stepper';
+import StepLabel from '@material-ui/core/StepLabel';
 
 const products = [
   { name: 'Product 1', desc: 'A nice thing', price: '$9.99' },
@@ -21,26 +27,42 @@ const payments = [
   { name: 'Expiry date', detail: '04/2024' },
 ];
 
-const useStyles = makeStyles((theme) => ({
-  listItem: {
-    padding: theme.spacing(1, 0),
-  },
-  total: {
-    fontWeight: 700,
-  },
-  title: {
-    marginTop: theme.spacing(2),
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   listItem: {
+//     padding: theme.spacing(1, 0),
+//   },
+//   total: {
+//     fontWeight: 700,
+//   },
+//   title: {
+//     marginTop: theme.spacing(2),
+//   },
+// }));
 
-export default function Review() {
+export default function Review(props) {
   const classes = useStyles();
 
   return (
     <React.Fragment>
+      <main className={classes.layout}>
+      <Paper className={classes.paper}>  
+      <Typography component="h1" variant="h4" align="center">
+            Checkout
+          </Typography>          
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
+      <Stepper activeStep="1" className={classes.stepper}>
+              <Step>
+                <StepLabel>Shipping Address</StepLabel>
+              </Step>
+              <Step>
+                <StepLabel>Payment Details</StepLabel>
+              </Step>  
+              <Step>
+                <StepLabel>Review Your Order</StepLabel>
+              </Step>                 
+          </Stepper>       
       <List disablePadding>
         {products.map((product) => (
           <ListItem className={classes.listItem} key={product.name}>
@@ -80,7 +102,15 @@ export default function Review() {
             ))}
           </Grid>
         </Grid>
+          <Grid item xs={12} sm={6}>
+          <Button
+            color="primary"            
+            onClick={props.prevStep}
+          > Previous </Button>
+        </Grid> 
       </Grid>
+      </Paper>
+      </main>      
     </React.Fragment>
   );
 }
