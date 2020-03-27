@@ -36,7 +36,7 @@ function Header() {
                     </IconButton>
                     <Button color="inherit"><Link to="/">SHOP</Link></Button>
                     {
-                        cartItems.length > 0 && <Button color="inherit"><Link to="/cart">Cart</Link></Button>
+                        cartItems.length > 0 && <Button color="inherit"><Link to="/cart"><i className={`${cartClassName} ri-fw ri-2x`}></i></Link></Button>
                     }
                     {
                         cartItems.length > 0 &&  <Button color="inherit"><Link to="/checkout">Checkout</Link></Button>

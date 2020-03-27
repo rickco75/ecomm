@@ -1,5 +1,4 @@
-import React, { useContext } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React  from 'react';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -20,6 +19,8 @@ export default function Review(props) {
   const cartItemElements = props.cartItems.map(item => (
     <CartItem key={item.id} item={item} />
   ))
+  const cost = cartItemElements.length*5.99
+  const totalCost = cost.toLocaleString("en-US", { style: "currency", currency: "USD" })
   return (
     <React.Fragment>
       <main className={classes.layout}>
@@ -45,8 +46,8 @@ export default function Review(props) {
             {cartItemElements}
             <ListItem className={classes.listItem}>
               <ListItemText primary="Total" />
-              <Typography variant="subtitle1" className={classes.total}>
-                ${props.cartItems.length*5.99}
+              <Typography variant="subtitle1" className={classes.total}>              
+                {totalCost}
           </Typography>
             </ListItem>
           </List>
@@ -54,7 +55,7 @@ export default function Review(props) {
             <Grid item xs={12} sm={6}>
               <Typography variant="h6" gutterBottom className={classes.title}>
                 Shipping
-          </Typography>
+            </Typography>
               <Typography gutterBottom>{props.values.firstName} {props.values.lastName}</Typography>
               {/* <Typography gutterBottom>{addresses.join(', ')}</Typography> */}
               <Typography gutterBottom>{props.values.address1}</Typography>

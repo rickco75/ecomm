@@ -38,11 +38,12 @@ function Cart() {
     }
 
 
-    const { firstName, lastName, address1, address2, city, state, zip, country, cardName, cardNumber, expDate, cvv } = inputData
-    const values = { firstName, lastName, address1, address2, city, state, zip, country, cardName, cardNumber, expDate, cvv }
-    const submitForm = () => {
-        console.log(inputData)
-    }
+    //const { firstName, lastName, address1, address2, city, state, zip, country, cardName, cardNumber, expDate, cvv } = inputData
+    const values = {...inputData}
+    //const values = { firstName, lastName, address1, address2, city, state, zip, country, cardName, cardNumber, expDate, cvv }
+    // const submitForm = () => {
+    //     console.log(inputData)
+    // }
 
     switch (step) {
         case 1:
@@ -83,6 +84,14 @@ function Cart() {
                     cartItems={cartItems}
                 />
             )
+        default: return (
+            <AddressForm
+            nextStep={nextStep}
+            handleTextFieldChange={handleTextFieldChange}
+            values={values}
+            cartItems={cartItems}
+        />
+        )
     }
 }
 
